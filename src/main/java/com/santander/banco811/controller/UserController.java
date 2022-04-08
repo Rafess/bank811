@@ -17,8 +17,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public List<User> getAll(@RequestParam(required = false) String nome) {
-        return userService.getAll(nome);
+    public List<User> getAll(@RequestParam(required = false) String name) {
+        return userService.getAll(name);
     }
 
     @PostMapping

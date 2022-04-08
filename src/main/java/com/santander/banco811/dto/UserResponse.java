@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 public class UserResponse {
     private Integer id;
     private String cpf;
-    private String nome;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
+    private String name;
+    private LocalDateTime criationDate;
+    private LocalDateTime updateDate;
 
     public UserResponse(User user) {
         this.id = user.getId();
         this.cpf = user.getCpf();
-        this.dataCriacao = user.getDataCriacao();
-        this.nome = user.getNome();
-        this.dataAtualizacao = user.getDataAtualizacao();
+        this.criationDate = user.getCreationDate();
+        this.name = user.getName();
+        this.updateDate = user.getUpdateDate();
     }
 
     public static List<UserResponse> toResponse(List<User> users){

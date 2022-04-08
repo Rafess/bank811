@@ -17,21 +17,21 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountResponse {
     private Integer id;
-    private Integer numero;
-    private Integer agencia;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataAtualizacao;
-    private BigDecimal saldo;
+    private Integer number;
+    private Integer agency;
+    private LocalDateTime creationDate;
+    private LocalDateTime updateDate;
+    private BigDecimal balance;
     private AccountType accountType;
     private User user;
 
     public AccountResponse(Account account) {
         this.id = account.getId();
-        this.numero = account.getNumero();
-        this.agencia = account.getAgencia();
-        this.dataCriacao = account.getDataCriacao();
-        this.dataAtualizacao = account.getDataAtualizacao();
-        this.saldo = account.getSaldo();
+        this.number = account.getNumber();
+        this.agency = account.getAgency();
+        this.creationDate = account.getCreationDate();
+        this.updateDate = account.getUpdateDate();
+        this.balance = account.getBalance();
         this.accountType = account.getAccountType();
         this.user = account.getUser();
     }

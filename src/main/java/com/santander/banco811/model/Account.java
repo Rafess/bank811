@@ -1,5 +1,6 @@
 package com.santander.banco811.model;
 
+import com.santander.banco811.dto.AccountRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,21 +24,21 @@ public class Account {
     private Integer id;
 
     @Column(name = "numero")
-    private Integer numero;
+    private Integer number;
 
     @Column(name = "agencia")
-    private Integer agencia;
+    private Integer agency;
 
     @Column(name = "data_criacao")
     @CreatedDate
-    private LocalDateTime dataCriacao;
+    private LocalDateTime creationDate;
 
     @Column(name = "data_atualizacao")
     @LastModifiedDate
-    private LocalDateTime dataAtualizacao;
+    private LocalDateTime updateDate;
 
     @Column(name = "saldo")
-    private BigDecimal saldo;
+    private BigDecimal balance;
 
     @Column(name = "tipo_conta")
     @Enumerated(EnumType.STRING)
@@ -46,4 +47,19 @@ public class Account {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "ususario_id")
+    private User ususario;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private User usuario;
+
+    public Account(AccountRequest accountRequest, String username) {
+        this.number = accountRequest.getNumber();
+        this.agency = accountRequest.getAgency();
+        this.accountType = accountRequest.getAccountType();
+        this.user = accountRequest.getUser();
+    }
 }

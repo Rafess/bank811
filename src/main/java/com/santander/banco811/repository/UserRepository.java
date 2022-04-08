@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -32,4 +33,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByNomeAndDataCriacaoOrderByNomeAsc(String nome, LocalDateTime dataCriacao);
 
     User findByCpf(String cpf);
+
+    Optional<User> findByLogin(String login);
 }

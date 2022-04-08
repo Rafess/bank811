@@ -1,7 +1,8 @@
 package com.santander.banco811.repository;
 
-import com.santander.banco811.model.Conta;
+import com.santander.banco811.model.Account;
 import com.santander.banco811.model.AccountType;
+import com.santander.banco811.projection.AccountView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,38 +13,39 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Conta, Integer> {
-    List<Conta> findByNome(Integer numero);
-    List<Conta> findBySaldoLessThan(BigDecimal saldo);
-    List<Conta> findBySaldoLessThanEqual(BigDecimal saldo);
-    List<Conta> findBySaldoGreaterThan(BigDecimal saldo);
-    List<Conta> findBySaldoGreaterThanEqual(BigDecimal saldo);
+public interface AccountRepository extends JpaRepository<Account, Integer> {
+    List<Account> findByBalanceLessThan(BigDecimal balance);
+    List<Account> findByBalanceLessThanEqual(BigDecimal balance);
+    List<Account> findByBalanceGreaterThan(BigDecimal balance);
+    List<Account> findByBalanceGreaterThanEqual(BigDecimal balance);
 
-    List<Conta> findBySaldoBetween(BigDecimal saldoInicial, BigDecimal saldoFinal);
-    List<Conta> findBySaldoIn(List<BigDecimal> saldos);
+    List<Account> findByBalanceBetween(BigDecimal initialBalance, BigDecimal finalBalance);
+    List<Account> findByBalanceIn(List<BigDecimal> balances);
 
-    List<Conta> findByTipoContaAndSaldoBetweenOrderBySaldo(AccountType accountType, BigDecimal saldoInicial, BigDecimal saldoFinal);
+    List<Account> findByAccountTypeAndBalanceBetweenOrderByBalance(AccountType accountType, BigDecimal initialBalance, BigDecimal finalBalance);
 
-    List<Conta> findByUsuario_cpf(String cpf);
+    List<Account> findByUsuario_cpf(String cpf);
 
-    Boolean existsByTipoConta(AccountType accountType);
+    Boolean existsByAccountType(AccountType accountType);
 
-    @Query("select c from Conta c " +
-            "where (c.tipoConta = :tipoConta and c.usuario.cpf = :cpf) " +
-            "or (c.tipoConta = :tipoConta or c.saldo = :saldo)")
-    List<Conta> findByTipoContaAndCpfOrTipoContaAndSaldo(
-            @Param("tipoConta") AccountType accountType,
+    @Query("select c from Account c " +
+            "where (c.accountType = :accountType and c.usuario.cpf = :cpf) " +
+            "or (c.accountType = :accountType or c.balance = :balance)")
+    List<Account> findByAccountTypeAndCpfOrAccountTypeAndBalance(
+            @Param("accountType") AccountType accountType,
             @Param("cpf") String cpf,
-            @Param("saldo") BigDecimal saldo
+            @Param("balance") BigDecimal balance
     );
 
-    @Query(value = "select * from conta c" +
-            "where (c.tipo_conta = :tipoConta AND" +
-            "c.data_criacao >= :dataCriacao)" +
-            "OR c.saldo = :saldo ", nativeQuery = true)
-    List<Conta> findByDataCriacaoAndTipoContaOrSaldo(
-            @Param("dataCriacao") LocalDateTime dataCriacao,
-            @Param("tipoConta") LocalDateTime tipoConta,
-            @Param("saldo") BigDecimal saldo
-            );
+    @Query("select c from Account c " +
+            "where c.accountType = :accountType and c.usuario.name = :name")
+    List<Account> findByAccountTypeAndUsuarioName(
+            @Param("accountType") AccountType accountType,
+            @Param("name") String name
+    );
+
+
+    List<AccountView> findAllByAccountType(AccountType accountType);
 }
+
+

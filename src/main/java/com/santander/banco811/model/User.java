@@ -29,19 +29,19 @@ public class User {
     private String cpf;
 
     @Column(name = "senha")
-    private String senha;
+    private String password;
 
     @Column(name = "nome")
-    private String nome;
+    private String name;
 
     @Column(name = "data_criacao")
     @CreatedDate
-    private LocalDateTime dataCriacao;
+    private LocalDateTime creationDate;
 
     @Column(name = "data_atualizacao")
     @LastModifiedDate
     @UpdateTimestamp
-    private LocalDateTime dataAtualizacao;
+    private LocalDateTime updateDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -49,7 +49,7 @@ public class User {
 
     public User(UserRequest userRequest) {
         this.cpf = userRequest.getCpf();
-        this.nome = userRequest.getNome();
-        this.senha = userRequest.getSenha();
+        this.name = userRequest.getName();
+        this.password = userRequest.getPassword();
     }
 }
