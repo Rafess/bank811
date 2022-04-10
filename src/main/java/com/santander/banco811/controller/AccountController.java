@@ -2,13 +2,14 @@ package com.santander.banco811.controller;
 import com.santander.banco811.dto.AccountRequest;
 import com.santander.banco811.dto.AccountResponse;
 import com.santander.banco811.model.Account;
+import com.santander.banco811.model.AccountType;
 import com.santander.banco811.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import java.util.List;
 @RestController
 @RequestMapping("/conta")
 public class AccountController {
@@ -16,8 +17,17 @@ public class AccountController {
         AccountService accountService;
 
         @GetMapping
-        public List<Account> getAll(@RequestParam(required = false) Integer name) {
-            return accountService.getAll(name);
+        public Page<Account> getAll(@RequestParam(required = false) Integer name,
+                                    @RequestParam(required = false, defaultValue = "0") int page,
+                                    @RequestParam(required = false, defaultValue = "3") int size) {
+            return accountService.getAll(name, page, size);
+        }
+
+        @GetMapping("/tipoConta")
+        public Page<AccountResponse> getAllByAccountType(@RequestParam AccountType accountType,
+                                                         @RequestParam(required = false, defaultValue = "0") int page,
+                                                         @RequestParam(required = false, defaultValue = "3") int size) {
+            return  accountService.getAllByAccountType(accountType, page, size);
         }
 
         @PostMapping

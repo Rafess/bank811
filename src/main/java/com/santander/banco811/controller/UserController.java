@@ -5,6 +5,7 @@ import com.santander.banco811.dto.UserResponse;
 import com.santander.banco811.model.User;
 import com.santander.banco811.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +18,13 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public List<User> getAll(@RequestParam(required = false) String name) {
-        return userService.getAll(name);
+    public Page<User> getAll(@RequestParam(required = false) String name) {
+        return userService.getAll(name, 1, 3);
     }
 
     @PostMapping
     public UserResponse create(@RequestBody UserRequest userRequest) {
+
         return userService.create(userRequest);
     }
 

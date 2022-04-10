@@ -1,6 +1,7 @@
 package com.santander.banco811.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.santander.banco811.dto.UserRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,10 @@ public class User {
     @Column(name = "nome")
     private String name;
 
+    @JsonProperty("username")
+    @Column(name = "login")
+    private String login;
+
     @Column(name = "data_criacao")
     @CreatedDate
     private LocalDateTime creationDate;
@@ -44,7 +49,7 @@ public class User {
     private LocalDateTime updateDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Account> accounts;
 
     public User(UserRequest userRequest) {

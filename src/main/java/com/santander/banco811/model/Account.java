@@ -1,6 +1,8 @@
 package com.santander.banco811.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.santander.banco811.dto.AccountRequest;
+import com.santander.banco811.dto.UserRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table(name = "conta")
 @Entity
@@ -48,13 +51,10 @@ public class Account {
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "ususario_id")
-    private User ususario;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private User usuario;
+    @JsonIgnore
+    @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 
     public Account(AccountRequest accountRequest, String username) {
         this.number = accountRequest.getNumber();
@@ -62,4 +62,6 @@ public class Account {
         this.accountType = accountRequest.getAccountType();
         this.user = accountRequest.getUser();
     }
+
+
 }
