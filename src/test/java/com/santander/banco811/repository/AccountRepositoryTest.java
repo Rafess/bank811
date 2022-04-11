@@ -16,8 +16,6 @@ import org.springframework.data.domain.Pageable;
 @DataJpaTest
 @Profile("test")
 class AccountRepositoryTest {
-    @Autowired
-    private TestEntityManager testEntityManager;
 
     @Autowired
     AccountRepository accountRepository;
@@ -28,18 +26,25 @@ class AccountRepositoryTest {
     @Test
     void validateFindByNumberIfRepositoryBlank() {
         Account account = new Account();
-        account.setNumber(932834);
-        account.setAgency(11);
-        account.setAccountType(AccountType.PF);
-        account.setUser(accountRequest.getUser());
-        account = testEntityManager.persist(account);
         PageRequest pageRequest =  PageRequest.of(3,1);
-        var accountFound = accountRepository.findByNumber(account.getNumber(), pageRequest );
+        var accountFound = accountRepository.findByNumber(account.getNumber(), pageRequest);
         Assertions.assertEquals(accountFound.getNumber(), account.getNumber());
     }
 
 
-//    @Test
-//    void findByAccountType() {
-//    }
+    @Test
+    void validateFindByNumberWhenSuccess() {
+        Account account = new Account();
+        account.setNumber(123456);
+        account.setAgency(20);
+        account.setAccountType(AccountType.PF);
+        account.setUser(accountRequest.getUser());
+        accountRepository.save(account);
+        PageRequest pageRequest = PageRequest.of(0,3);
+        var accountFound = accountRepository.findByNumber(account.getNumber(), pageRequest);
+        Assertions.assertEquals(accountFound.getNumber(), account.getNumber());
+    }
+
+
+
 }
