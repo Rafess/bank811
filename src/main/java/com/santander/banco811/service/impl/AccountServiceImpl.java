@@ -1,11 +1,13 @@
 package com.santander.banco811.service.impl;
 import com.santander.banco811.dto.AccountRequest;
 import com.santander.banco811.dto.AccountResponse;
+import com.santander.banco811.dto.UserResponse;
 import com.santander.banco811.model.Account;
 import com.santander.banco811.model.AccountType;
 import com.santander.banco811.repository.AccountRepository;
 import com.santander.banco811.repository.UserRepository;
 import com.santander.banco811.service.AccountService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     UserRepository userRepository;
+
+    UserResponse userResponse = new UserResponse();
 
     @Override
     public Page<Account> getAll(Integer number, int page, int size) {
@@ -44,15 +48,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountResponse create(AccountRequest accountRequest, String username) {
-        var user = userRepository.findByLogin(username);
-
-        Account account = new Account(accountRequest, username);
+    public AccountResponse create(AccountRequest accountRequest) {
+        userRepository.findById(userResponse.getId()).orElseThrow();
+        Account account = new Account(accountRequest);
         accountRepository.save(account);
-        account.setUser(user.orElseThrow());
+        account.setUser(accountRequest.getUser());
         account.setAccountType(accountRequest.getAccountType());
-         accountRepository.save(account);
-         return new AccountResponse(account);
+        accountRepository.save(account);
+        return new AccountResponse(account);
+
     }
 
     @Override

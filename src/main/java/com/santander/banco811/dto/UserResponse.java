@@ -3,6 +3,7 @@ package com.santander.banco811.dto;
 import com.santander.banco811.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserResponse {
     private Integer id;
     private String cpf;
@@ -22,10 +23,11 @@ public class UserResponse {
     public UserResponse(User user) {
         this.id = user.getId();
         this.cpf = user.getCpf();
-        this.creationDate = user.getCreationDate();
         this.name = user.getName();
+        this.creationDate = user.getCreationDate();
         this.updateDate = user.getUpdateDate();
     }
+
 
     public static List<UserResponse> toResponse(List<User> users){
         return  users.stream().map(UserResponse::new).collect(Collectors.toList());

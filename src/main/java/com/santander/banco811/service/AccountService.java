@@ -12,7 +12,7 @@ public interface AccountService {
 
     Page<AccountResponse> getAllByAccountType(AccountType accountType, int page, int size);
 
-    AccountResponse create(AccountRequest accountRequest, String username);
+    AccountResponse create(AccountRequest accountRequest);
     Account getById(Integer id);
     Account update(AccountRequest accountRequest, Integer id);
     void delete(Integer id);

@@ -18,8 +18,8 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public Page<User> getAll(@RequestParam(required = false) String name) {
-        return userService.getAll(name, 1, 3);
+    public Page<User> getAll(@RequestParam(required = false) String name, @RequestParam(required = false, defaultValue = "0") int page, @RequestParam(required = false, defaultValue = "3") int size) {
+        return userService.getAll(name, page, size);
     }
 
     @PostMapping

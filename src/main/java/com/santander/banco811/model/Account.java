@@ -56,7 +56,7 @@ public class Account {
     @OneToMany(mappedBy = "accountId", cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
-    public Account(AccountRequest accountRequest, String username) {
+    public Account(AccountRequest accountRequest) {
         this.number = accountRequest.getNumber();
         this.agency = accountRequest.getAgency();
         this.accountType = accountRequest.getAccountType();

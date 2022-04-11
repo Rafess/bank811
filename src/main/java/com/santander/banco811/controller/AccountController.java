@@ -7,8 +7,6 @@ import com.santander.banco811.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
 @RestController
 @RequestMapping("/conta")
@@ -32,15 +30,13 @@ public class AccountController {
 
         @PostMapping
         public AccountResponse create(@RequestBody AccountRequest accountRequest) {
-            var username = RequestContextHolder.getRequestAttributes().getAttribute(USERNAME, RequestAttributes.SCOPE_REQUEST).toString();
-            return accountService.create(accountRequest, username);
+            return accountService.create(accountRequest);
         }
 
         @GetMapping("/{id}")
         public Account getById(@PathVariable Integer id) {
             return accountService.getById(id);
         }
-  private static final String USERNAME = "USERNAME";
 
         @PutMapping("/{id}")
         public Account update(@PathVariable Integer id, @RequestBody AccountRequest accountRequest) {
