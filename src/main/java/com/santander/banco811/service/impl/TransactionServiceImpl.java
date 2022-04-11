@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
@@ -20,13 +21,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     AccountRepository accountRepository;
 
-    TransactionResponse transactionResponse = new TransactionResponse();
+
 
     @Override
     public TransactionResponse create(TransactionRequest transactionRequest) {
-        transactionRespository.findById(transactionResponse.getId()).orElseThrow();
-        com.santander.banco811.model.Transaction transaction = new Transaction(transactionRequest);
-        transactionRespository.save(transaction);
+        Transaction transaction = new Transaction(transactionRequest);
         transaction.setAccountId(transactionRequest.getAccountId());
         transactionRespository.save(transaction);
         return new TransactionResponse(transaction);
@@ -45,8 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
                 size
         );
        return transactionRespository.findByAccountId(id, pageRequest);
-
-
     }
+
 
 }

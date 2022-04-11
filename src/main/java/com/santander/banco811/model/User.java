@@ -35,10 +35,6 @@ public class User {
     @Column(name = "nome")
     private String name;
 
-    @JsonProperty("username")
-    @Column(name = "login")
-    private String login;
-
     @Column(name = "data_criacao")
     @CreatedDate
     private LocalDateTime creationDate;

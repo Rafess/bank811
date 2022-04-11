@@ -4,6 +4,7 @@ import com.santander.banco811.dto.AccountResponse;
 import com.santander.banco811.dto.UserResponse;
 import com.santander.banco811.model.Account;
 import com.santander.banco811.model.AccountType;
+import com.santander.banco811.projection.AccountView;
 import com.santander.banco811.repository.AccountRepository;
 import com.santander.banco811.repository.UserRepository;
 import com.santander.banco811.service.AccountService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 
@@ -40,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
         }
     }
     @Override
-    public Page<AccountResponse> getAllByAccountType(AccountType accountType, int page, int size) {
+    public Page<AccountView> getAllByAccountType(AccountType accountType, int page, int size) {
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "number");
 
@@ -49,11 +51,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountResponse create(AccountRequest accountRequest) {
-        userRepository.findById(userResponse.getId()).orElseThrow();
         Account account = new Account(accountRequest);
-        accountRepository.save(account);
         account.setUser(accountRequest.getUser());
         account.setAccountType(accountRequest.getAccountType());
+        account.setBalance(BigDecimal.valueOf(0.00));
         accountRepository.save(account);
         return new AccountResponse(account);
 

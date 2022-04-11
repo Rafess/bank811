@@ -2,6 +2,7 @@ package com.santander.banco811.model;
 
 import com.santander.banco811.dto.AccountRequest;
 import com.santander.banco811.dto.TransactionRequest;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,7 +39,6 @@ public class Transaction {
         private Integer agency;
 
         @ManyToOne
-        @Column(name = "conta_id")
         @JoinColumn(name = "conta_id", referencedColumnName = "id")
         private Account accountId;
 

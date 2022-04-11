@@ -3,6 +3,7 @@ import com.santander.banco811.dto.AccountRequest;
 import com.santander.banco811.dto.AccountResponse;
 import com.santander.banco811.model.Account;
 import com.santander.banco811.model.AccountType;
+import com.santander.banco811.projection.AccountView;
 import com.santander.banco811.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,9 +23,9 @@ public class AccountController {
         }
 
         @GetMapping("/tipoConta")
-        public Page<AccountResponse> getAllByAccountType(@RequestParam AccountType accountType,
-                                                         @RequestParam(required = false, defaultValue = "0") int page,
-                                                         @RequestParam(required = false, defaultValue = "3") int size) {
+        public Page<AccountView> getAllByAccountType(@RequestParam AccountType accountType,
+                                                     @RequestParam(required = false, defaultValue = "0") int page,
+                                                     @RequestParam(required = false, defaultValue = "3") int size) {
             return  accountService.getAllByAccountType(accountType, page, size);
         }
 

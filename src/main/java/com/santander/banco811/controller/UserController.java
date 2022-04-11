@@ -24,7 +24,6 @@ public class UserController {
 
     @PostMapping
     public UserResponse create(@RequestBody UserRequest userRequest) {
-
         return userService.create(userRequest);
     }
 

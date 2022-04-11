@@ -1,16 +1,24 @@
  todo:
 Trabalho do Módulo:
-- CRUD  de conta
-    getConta()
-    addConta()
-    updateConta()
-    deleteConta()
-- Mapeamento da entidade de transação
+( x ) - CRUD  de conta
+  ( X )  addConta() - CREATE
+  ( X )  getConta() - READ
+  ( X )  updateConta() - UPDATE
+  ( X )  deleteConta() - DELETE
+
+(  ) - Mapeamento da entidade de transação
     // Assistir aula do dia:
-- Busca Paginada
+
+( x ) - Busca Paginada
+    (  ) ACCOUNT
+    (  ) USER
+    (  ) TRANSACTION
     // Assistir aula do dia 4
-- Alguma busca por query
+    Pageable and PageRequest.
+
+( x ) - Alguma busca por query
     // Assistir aula do dia:
-- Pelo menos um teste de repository
+
+(  ) - Pelo menos um teste de repository
     // Assistir aula do dia 4
 

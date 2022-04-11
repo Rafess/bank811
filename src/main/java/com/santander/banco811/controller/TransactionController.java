@@ -15,7 +15,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/transacao")
 public class TransactionController {
 
     TransactionService transactionService;
@@ -31,7 +31,7 @@ public class TransactionController {
         return transactionService.getById(id);
     }
 
-    @GetMapping("{accountId}")
+    @GetMapping("/account")
     public Page<Transaction> getByAccountId(@RequestParam Integer accountId,
                                                     @RequestParam(required = false, defaultValue = "0") int page,
                                                     @RequestParam(required = false, defaultValue = "3") int size) {

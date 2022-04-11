@@ -17,8 +17,8 @@ public class TransactionResponse {
     private Integer agency;
     private Account accountId;
     public TransactionResponse(Transaction transaction) {
-        this.value = transaction.getValue();
         this.id = transaction.getId();
+        this.value = transaction.getValue();
         this.transactionType = transaction.getTransactionType();
         this.number = transaction.getNumber();
         this.agency = transaction.getAgency();
